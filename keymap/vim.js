@@ -3605,7 +3605,21 @@
             CodeMirror.commands.newlineAndIndent;
         fn(cm);
       },
+      'J': function(cm) {
+            cm.replaceRange('j', cm.getCursor());
+            cm.setOption('keyMap', 'await-k'); 
+      },
       fallthrough: ['default']
+    };
+
+    CodeMirror.keyMap['await-k'] = {
+      'K': function(cm) {
+        cm.replaceRange('',  {ch: cm.getCursor().ch - 1,
+                              line: cm.getCursor().line},
+                             cm.getCursor());
+        exitInsertMode(cm);
+      },
+      fallthrough: ['vim-insert']
     };
 
     CodeMirror.keyMap['vim-replace'] = {
